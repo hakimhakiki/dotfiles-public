@@ -11,7 +11,7 @@ My minimalistic dotfiles for you to review, use and modify.
 - Nerd Font [(link)](https://www.nerdfonts.com/)
 
 ## Installation
-Just copy and paste those folders to `~/.config/` :D
+Just copy and paste those folders (except for `images`) to `~/.config/` :D
 
 ## My Learning Sources
 - [Takuya's dotfiles](https://github.com/craftzdog/dotfiles-public)
