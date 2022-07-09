@@ -1,4 +1,3 @@
-lua << EOF
 local status, lualine = pcall(require, "lualine")
 if (not status) then
     return
@@ -29,11 +28,11 @@ local theme = {
         z = { fg = colors.black, bg = colors.cyan },
     },
     visual = { 
-        a = {fg = colors.black, bg = colors.yellow, gui='bold'},
+        a = { fg = colors.black, bg = colors.yellow, gui='bold'},
         z = { fg = colors.black, bg = colors.cyan },
     },
     command = {
-        a = {fg = colors.black, bg = colors.magenta, gui='bold'},
+        a = { fg = colors.black, bg = colors.magenta, gui='bold'},
         z = { fg = colors.black, bg = colors.cyan },
     },
 }
@@ -42,12 +41,13 @@ require('lualine').setup{
     options = {
         icons_enabled = true,
         theme = theme,
-        component_separators = {left='|', right='|'}, -- , 
-        section_separators = {left='', right=''}, -- use this ,  for powerline symbols
+        component_separators = {left='', right=''},
+        section_separators = {left='', right=''},
         globalstatus = true,
+        disabled_filetypes = {'xml'},
     },
-    sections = {
-        lualine_a = {'mode'},
+    sections = { -- icon for mode ' '
+        lualine_a = {{"mode", fmt= function(str) return ' ' end}},
         lualine_b = {
             {'filename',
                 file_status = true,
@@ -61,7 +61,9 @@ require('lualine').setup{
         },
         lualine_c = {
             'branch',
-            'diff',
+            'diff', 
+        },
+        lualine_x = {
             {'diagnostics',
                 sources = {'nvim_lsp'},
                 sections = {'error', 'warn', 'info'},
@@ -70,12 +72,7 @@ require('lualine').setup{
                 always_visible = true,
             },
         },
-        lualine_x = {},
-        lualine_y = {'encoding',},
-        lualine_z = {'progress'},
+        lualine_y = {{'filetype', colored = false}},
+        lualine_z = {'%p%% %l:%c'},
     },
 }
-
-EOF
-
-

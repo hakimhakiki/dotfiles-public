@@ -1,16 +1,33 @@
-if !exists('g:loaded_nvim_treesitter') | finish | endif
+if !exists('g:loaded_nvim_treesitter')
+    finish
+endif
 
 lua << EOF
-
 local treesitter_config = require('nvim-treesitter.configs')
 
 treesitter_config.setup{
     ensure_installed = "maintained",
     sync_install = false,
-    ignore_install = {},
+    ignore_install = {
+        "astro",
+        "clojure",
+        "cuda",
+        "elvish",
+        "foam",
+        "haskell",
+        "ninja",
+        "nix",
+        "norg",
+        "perl",
+        "pascal",
+        "scala",
+        "swift",
+        "yang",
+        "zig"
+    },
     highlight = {
         enable = true,
-        disable = {},
+        disable = {"html", "latex", "php"},
         additional_vim_regex_highlighting = false,
     },
     indent = {
@@ -22,10 +39,12 @@ treesitter_config.setup{
         "lua",
         "fish",
         "c",
+        "html",
         "css",
         "javascript",
         "php",
         "vim",
+        "latex",
     },
 }
 EOF

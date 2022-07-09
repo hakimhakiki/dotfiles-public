@@ -3,40 +3,32 @@
 #
 
 # terminal emulator
-super + Return
-	st -e fish
+super + {x, Return}
+    {st -e fish, alacritty}
 
 # file manager
 super + e
-	pcmanfm
+    pcmanfm
 
 # program launcher
 super + @space
-    dmenu_run -b -i -l 5 -fn 'Hack Nerd Font-10' -sb '#458588'
+    dmenu_run -b -i -l 5 -fn 'RobotoMono Nerd Font-10' -sb '#98971a' -nb '#282828' -sf '#282828' -p ' '
 
 # make sxhkd reload its configuration files:
 super + Escape
-	pkill -USR1 -x sxhkd
+    pkill -USR1 -x sxhkd
 
-# raise brightness
-XF86MonBrightnessUp
-	light -A 10 && light -O
+# raise and lower brightness
+{XF86MonBrightnessUp,XF86MonBrightnessDown}
+    light -{A,U} 5 && light -O
 
-# lower brightness
-XF86MonBrightnessDown
-	light -U 10 && light -O
-
-# raise volume
-XF86AudioRaiseVolume
-	pamixer -i 5
-
-# lower volume
-XF86AudioLowerVolume
-	pamixer -d 5
+# raise and lower volume
+{XF86AudioRaiseVolume,XF86AudioLowerVolume}
+    pamixer -{i,d} 5
 
 # toggle mute volume
 XF86AudioMute
-	pamixer -t
+    pamixer -t
 
 #
 # bspwm hotkeys
@@ -44,15 +36,19 @@ XF86AudioMute
 
 # quit/restart bspwm
 super + alt + {q,r}
-	bspc {quit,wm -r}
+    bspc {quit,wm -r}
 
 # close and kill
 super + {_,shift + }w
-	bspc node -{c,k}
+    bspc node -{c,k}
 
 # alternate between the tiled and monocle layout
 super + m
-	bspc desktop -l next
+    bspc desktop -l next
+
+# change border / window gap {5px, 10px, 20px, 40px}
+super + alt +{1,2,3,4}
+    bspc config window_gap {5,10,20,40}
 
 #
 # state/flags
@@ -60,31 +56,39 @@ super + m
 
 # set the window state
 super + {t,shift + t,f,shift + f}
-	bspc node -t {tiled,pseudo_tiled,floating,fullscreen}
+    bspc node -t {tiled,pseudo_tiled,floating,fullscreen}
 
 #
 # focus/swap
 #
 
+# swap to the biggest node
+super + s
+    bspc node -s biggest.window
+
+# focus to next/pref local node
+super + {_,shift + }c
+    bspc node -f {next,prev}.local.!hidden.window
+
 # focus the node in the given direction
 super + {_,shift + }{h,j,k,l}
-	bspc node -{f,s} {west,south,north,east}
-
-# focus the next/previous window in the current desktop
-super + {_,shift + }c
-	bspc node -f {next,prev}.local.!hidden.window
+    bspc node -{f,s} {west,south,north,east}
 
 # focus the next/previous desktop in the current monitor
 super + bracket{left,right}
-	bspc desktop -f {prev,next}.local
+    bspc desktop -f {prev,next}.local
 
 # focus the last node/desktop
 super + Tab
-	bspc desktop -f last
+    bspc desktop -f last
 
 # focus or send to the given desktop
 super + {_,shift + }{1-9,0}
-	bspc {desktop -f,node -d} '^{1-9,10}'
+    bspc {desktop -f,node -d} '^{1-9,10}'
+
+# rotate the split 90 deg
+super + {_,shift +}v
+    bspc node @parent -R {90,-90}
 
 #
 # preselect

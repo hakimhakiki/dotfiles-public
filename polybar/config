@@ -18,12 +18,13 @@
 
 [colors]
 background = #282828
-background-ts = #ff282828
+background-ts = #33282828
 foreground = #ebdbb2
 red = #cc241d
 green = #98971a
 yellow = #d79921
 blue = #458588
+
 
 [bar/main]
 width = 100%
@@ -44,17 +45,17 @@ bottom = false
 
 border-color = ${colors.background-ts}
 
-padding-left = 0
+padding-left = 1
 padding-right = 1
 
 module-margin-left = 1
-module-margin-right = 0
+module-margin-right = 1
 
-font-0 = Hack Nerd Font:pixelsize=10:style=Regular;1
+font-0 = RobotoMono Nerd Font:pixelsize=10:style=Bold;1
 
-modules-left = bspwm title 
-modules-center = 
-modules-right = backlight-acpi pulseaudio battery date
+modules-left = logo-menu title 
+modules-center = date
+modules-right = wlan backlight-acpi pulseaudio battery bspwm
 
 wm-restack = bspwm
 
@@ -68,30 +69,20 @@ format = <label>
 format-padding = 0
 
 label = %title%
-label-maxlen = 25
+label-maxlen = 30
 
 label-empty = Artix
+
+[module/logo-menu]
+type = custom/text
+content = 
+;content-foreground = ${colors.blue}
 
 ; powerline symbols    
 [module/sepleft1]
 type = custom/text
 content = 
 content-foreground = ${colors.green}
-
-[module/sepleft2]
-type = custom/text
-content = 
-content-foreground = ${colors.foreground}
-
-[module/sepright1]
-type = custom/text
-content = 
-content-foreground = ${colors.green}
-
-[module/sepright2]
-type = custom/text
-content = 
-content-foreground = ${colors.foreground}
 
 [module/xkeyboard]
 type = internal/xkeyboard
@@ -117,33 +108,51 @@ label-urgent-foreground = ${colors.red}
 label-empty =  %index%
 label-empty-padding = 1
 
+
 [module/xbacklight]
 type = internal/xbacklight
 
 format = <label>
-label = " %percentage%%"
+label =  %percentage%%
+;format-background = ${colors.yellow}
+
 
 [module/backlight-acpi]
 inherit = module/xbacklight
 type = internal/backlight
 card = amdgpu_bl1
 
+[module/wlan]
+type = internal/network
+interface = wlan0
+interval = 2.0
+
+format-connected = 鷺 <label-connected>
+label-connected = %essid%
+;format-connected-background = ${colors.red}
+
+format-disconnected = 鷺 None
+;format-disconnected-background = ${colors.red}
+
 [module/date]
 type = internal/date
-interval = 5
+interval = 2.0
 
-date = %H:%M
-date-alt = %d-%m-%Y %H:%M
+date = %d-%m-%Y %H:%M
+;date-alt = %d-%m-%Y %H:%M
 
-label =  %date% 
+label = 神 %date%
+;label-background = ${colors.green}
 
 [module/pulseaudio]
 type = internal/pulseaudio
 
 format-volume = <label-volume>
-label-volume = "墳 %percentage%%"
+label-volume = 墳 %percentage%%
+;format-volume-background = ${colors.green}
 
 label-muted = 婢
+;label-muted-background = ${colors.red}
 
 [module/battery]
 type = internal/battery
@@ -151,9 +160,14 @@ battery = BAT0
 adapter = ADP1
 full-at = 99
 
-format-charging = " <label-charging>"
-format-discharging = " <label-discharging>"
-format-full-prefix = " "
+format-charging = <label-charging>
+;format-charging-background = ${colors.yellow}
+format-discharging = <label-discharging>
+;format-discharging-background = ${colors.blue}
+;format-full-prefix = " "
+
+label-charging =  %percentage%%
+label-discharging =  %percentage%%
 
 [settings]
 screenchange-reload = true
