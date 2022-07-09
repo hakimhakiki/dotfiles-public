@@ -9,6 +9,7 @@ My minimalistic dotfiles for you to review, use and modify.
 - Cava [(link)](https://github.com/karlstav/cava)
 - Fish (Friendly Interactive Shell) [(link)](https://fishshell.com/)
 - Neovim (v0.5 or latest) [(link)](https://neovim.io/)
+- Pfetch [(link)](https://github.com/dylanaraps/pfetch)
 - Nerd Font [(link)](https://www.nerdfonts.com/)
 
 ## Installation
